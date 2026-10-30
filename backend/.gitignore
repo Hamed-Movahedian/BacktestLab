@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables & secrets
+# .env
+
+# VS Code settings (اختیاری)
+# .vscode/
+
+# back test result
+backtest_result.html

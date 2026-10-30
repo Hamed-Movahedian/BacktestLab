@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code workspace runtime files (اختیاری: اگر می‌خواهید کانفیگ محلی ورک‌اسپیس نرود)
+.vscode/
+
+# Shared environment variables
+.env
+.env.*
+!.env.example
+
+# Logs & temp
+*.log
+tmp/
+temp/
