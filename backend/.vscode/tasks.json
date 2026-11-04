@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pip install",
+      "type": "shell",
+      "command": ".venv\\Scripts\\activate.ps1; pip install -r requirements.txt",
+      "problemMatcher": []
+    },
+    {
+            "label": "Run Backtest Module",
+            "type": "shell",
+            "command": ".venv\\Scripts\\activate.ps1; python -m backtest.backtest",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+  ]
+}

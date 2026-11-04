@@ -4,7 +4,7 @@ Thumbs.db
 desktop.ini
 
 # VS Code workspace runtime files (اختیاری: اگر می‌خواهید کانفیگ محلی ورک‌اسپیس نرود)
-.vscode/
+#.vscode/
 
 # Shared environment variables
 .env
