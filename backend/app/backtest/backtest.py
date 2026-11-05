@@ -7,30 +7,41 @@ from app.strategy.MacdCrossStrategy import MacdStrategy as strategy
 from app.utils.csv_loader import load_csv_to_df
 
 
-def back_test():
-    # ۱. مسیردهی مطمئن به فایل CSV (کنار فایل اسکریپت یا در پوشه جاری)
-    csv_path = Path("app/data/geramTalaHejdah-60minute.csv")
+def back_test(csv_filename: str, candle_count: int = 0):
+    """
+    Run backtest for the given CSV filename (relative to app/data) and limit to last `candle_count` records.
 
-    # ۲. بارگذاری داده‌ها با تابع اختصاصی شما
-    df = load_csv_to_df(str(csv_path)).tail(100)
+    Args:
+        csv_filename (str): Name of the CSV file inside 'app/data' (e.g., 'geramTalaHejdah-60minute.csv')
+        candle_count (int): Number of most recent candles to use for backtest
 
-    # ۳. تنظیم و اجرای بک‌تست
+    Returns:
+        dict: A dictionary containing backtest candles and trades
+    """
+    # Ensure provided CSV path is used
+    csv_path = Path(f"app/data/{csv_filename}")
+
+    # Load required number of candles
+    if candle_count > 0:
+        df = load_csv_to_df(str(csv_path)).tail(candle_count)
+    else:
+        df = load_csv_to_df(str(csv_path))
+
     bt = Backtest(
         df,
         strategy,
-        cash=100_000_000,  # سرمایه اولیه
-        commission=0.0024,  # ۰.۲۴ درصد کارمزد
+        cash=100_000_000,  # initial cash
+        commission=0.0024,  # 0.24% commission
         exclusive_orders=True,
     )
 
     stats = bt.run()
-    print("\n========== نتایج بک‌تست ==========")
+    print("\n========== Backtest Results ==========")
     print(stats)
-    print("===================================\n")
+    print("======================================\n")
 
-    # ۴. تبدیل دیتای OHLCV برای کتابخانه lightweight-charts
+    # Format data for lightweight-charts
     df_chart = df.reset_index()
-    # ستون ایندکس Datetime به time و اسامی ستون‌ها به حروف کوچک تبدیل می‌شوند
     df_chart.rename(
         columns={
             df_chart.columns[0]: "time",
@@ -43,9 +54,10 @@ def back_test():
         inplace=True,
     )
     df_chart = df_chart[["time", "open", "high", "low", "close"]]
+    df_chart["time"] = (
+        pd.to_datetime(df_chart["time"]).astype("int64") // 10**6
+    )  # millisecond timestamp
 
-    df_chart["time"] = pd.to_datetime(df_chart["time"]).astype("int64") // 10**6 #millisecond timestamp
-    
     trades = stats.get("_trades")
     if trades is not None and not trades.empty:
         df_trades = pd.DataFrame(
@@ -68,3 +80,4 @@ def back_test():
         "candles": df_chart.to_dict(orient="records"),
         "trades": df_trades.to_dict(orient="records"),
     }
+

@@ -185,8 +185,7 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "page-width-toggle:페이지 너비 전환": false
+      "bases:Create new base": false
     }
   },
   "active": "d67b82ae0c287418",

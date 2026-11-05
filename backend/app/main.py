@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.backtestRouter import router as backtest_router
+from app.api.dataRouter import router as data_router
+
 
 
 @asynccontextmanager
@@ -29,6 +31,8 @@ app.add_middleware(
 )
 
 app.include_router(backtest_router)
+app.include_router(data_router)
+
 
 
 @app.get("/health")
