@@ -1,0 +1,177 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Back Test Lab", "version": "0.1.0" },
+  "paths": {
+    "/api/backtest/get_back_test": {
+      "post": {
+        "tags": ["backtest"],
+        "summary": "Get Back Test",
+        "operationId": "get_back_test_api_backtest_get_back_test_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BacktestRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BacktestResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/data/csv-files": {
+      "get": {
+        "tags": ["data"],
+        "summary": "List Csv Files",
+        "operationId": "list_csv_files_api_data_csv_files_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CsvFilesResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BacktestRequest": {
+        "properties": {
+          "csv_filename": {
+            "type": "string",
+            "title": "Csv Filename",
+            "default": "geramTalaHejdah-60minute.csv"
+          },
+          "candle_count": {
+            "type": "integer",
+            "minimum": 100.0,
+            "title": "Candle Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "BacktestRequest"
+      },
+      "BacktestResponse": {
+        "properties": {
+          "candles": {
+            "items": { "$ref": "#/components/schemas/Candle" },
+            "type": "array",
+            "title": "Candles"
+          },
+          "trades": {
+            "items": { "$ref": "#/components/schemas/Trade" },
+            "type": "array",
+            "title": "Trades"
+          }
+        },
+        "type": "object",
+        "required": ["candles", "trades"],
+        "title": "BacktestResponse"
+      },
+      "Candle": {
+        "properties": {
+          "time": { "type": "integer", "title": "Time" },
+          "open": { "type": "number", "title": "Open" },
+          "high": { "type": "number", "title": "High" },
+          "low": { "type": "number", "title": "Low" },
+          "close": { "type": "number", "title": "Close" }
+        },
+        "type": "object",
+        "required": ["time", "open", "high", "low", "close"],
+        "title": "Candle"
+      },
+      "CsvFilesResponse": {
+        "properties": {
+          "csv_files": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Csv Files"
+          }
+        },
+        "type": "object",
+        "required": ["csv_files"],
+        "title": "CsvFilesResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Trade": {
+        "properties": {
+          "is_long": { "type": "boolean", "title": "Is Long" },
+          "entry_time": { "type": "number", "title": "Entry Time" },
+          "exit_time": { "type": "number", "title": "Exit Time" },
+          "entry_price": { "type": "number", "title": "Entry Price" },
+          "exit_price": { "type": "number", "title": "Exit Price" },
+          "pnl_pct": { "type": "number", "title": "Pnl Pct" }
+        },
+        "type": "object",
+        "required": [
+          "is_long",
+          "entry_time",
+          "exit_time",
+          "entry_price",
+          "exit_price",
+          "pnl_pct"
+        ],
+        "title": "Trade"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" },
+          "input": { "title": "Input" },
+          "ctx": { "type": "object", "title": "Context" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
