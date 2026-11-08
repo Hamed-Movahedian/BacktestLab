@@ -1,0 +1,1 @@
+repomix --style xml --include "**/*.md,**/*.json" --ignore ".obsidian/**"

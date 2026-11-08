@@ -1,0 +1,299 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files and files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: **/*.md, **/*.json
+- Files matching these patterns are excluded: .obsidian/**
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+Components/
+  chart.md
+  Input.md
+  Trades.md
+main.md
+openapi.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="Components/chart.md">
+- در این کامپوننت نمودار اصلی به صورت شمعی نمایش داده می شود.
+- علاوه بر نمودار اصلی برای هر معامله اطلاعات زیر نمایش داده می شود:
+	1. یک خط به صورت فلش از نقطه ورود به نقطه خروج نمایش داده می شود.
+	2. رنگ این خط برای معاملاتی که سود داشته اند سبز و برای معاملات ضررده به رنگ قرمز است.
+-  اطلاعات معاملات با در یک فایل جداگانه نمایش داده شود. اصل تفکیک وظایف
+- نوار زمان بر اساس تاریخ شمسی و زمان تهران است.
+	- ثانیه نمایش داده نمی شود.
+	- ساعت 12 ساعته است.
+- برای نمایش این نمودار از کتابخانه lightweight-charts ورژن 5.2 به بالا استفاده می شود.
+	- از توابع قدیمی مثل addCandlestickSeries استفاده نکن.
+	- ورژن های قبلی تفاوت هایی با این ورژن دارند که حتما انها را در نظر بگیر.
+- قیمت ها ممیز ندارد.
+- تم مورد استفاده برای رنگ ها dark باشد.
+- زمانی که هیچ معامله ای انتخاب نشده باشد کل اطاعات نمودار نمایش داده شوند (Fit to content)
+- زمانی که یک معامله انتیخاب شده باشد روی آن زوم کند.
+- این کامپوننت در سمت چپ صفحه و زیر کامپوننت ورودی ها باشد.
+</file>
+
+<file path="Components/Input.md">
+- در این قسمت ورودی های وب سرویس را از کاربر گرفته میشود.
+- برای ورودی csv_filename باید فهرست فایل ها را از وب سرویس /api/data/csv-files بگیرد و یکی از آنها را انتخاب کند. 
+	- از کامپوننت dropbox استفاده کنید و انتخاب پیش فرض اولین باشد.
+- برای سایر ورودی ها هم کامپوننت مناسب را انتخاب کند.
+- این کامپوننت به صورت یک نوار بالای صفحه است. کل عرض صفحه را می گیرد و ارتفاع آن به اندازه کافی است.
+</file>
+
+<file path="Components/Trades.md">
+-  در این کامپوننت فهرست معاملات گرفته شده از وب سرویس را نمایش می دهیم.
+- برای هر معامله موارد زیر را در یک سطر نمایش می دهد:
+	1. ردیف 
+		- از یک شماره می خورد تا آخرین معامله
+	2. درصد سود یا زیان 
+		- رنگ سبز برای معاملات مثبت (سود ده) و رنگ قرمز معاملات منفی (ضرر ده) هستند.
+		- عدد به صورت درصد و با دو رقم اعشار نمایش داده شوند
+- زیر سطر های معاملات یک ردیف مقادیر زیر را نمایش دهد:
+	1. تعداد معاملات
+	2. جمع جبری معاملات
+		- نمایشگر سود یا زیان کلی استراتژی معاملاتی
+- امکان انتخاب یک معامله وجود داشته باشد.
+	- با کلیک روی سطر معامله این معامله انتخاب شود.
+- این کامپوننت باید به صورت یک ستون در سمت راست صفحه باشد.
+</file>
+
+<file path="main.md">
+# تعریف پروژه: 
+میخواهیم یک صفحه وب با استفاده از react پیاده سازی کنیم که اطلاعات را از یک وب سرویس دریافت کرده و در صفحه وب نمایش دهد.
+
+# مشخصات وب سرویس:
+- مشخصات وب سرویس و اندپوینت ها در فایل  توضیح داده شده است. [[openapi.json]]
+- وب سرویس در آدرس  http://127.0.0.1:8000  قرار دارد.
+# مشخصات صفحه وب :
+- صفحه وب از سه قسمت تشکیل شده است:
+	1. قسمت ورودی ها: توضیح در فایل [[Input]] 
+	2. قسمت چارت اصلی: توضیح در فایل [[chart]]
+	3. قسمت جدول معاملات: توضیح در فایل [[Trades]]
+# نکات پیاده سازی:
+- از اصل **Separation of Concerns (تفکیک دغدغه‌ها / جداسازی وظایف)**  استفاده کن.
+- ساختار کامل پوشه‌ها و کلیه کدهای مربوط  کامپوننت‌ها  همراه با تنظیمات سبک و کتابخانه‌ها را به صورت یک مجموعه کد ساختاریافته  آماده کن.
+- همه تایپ ها به صورت مشخص تعریف شده باشند و از any استفاده نکنید. **Type Safety** (ایمنی نوع) یا به طور دقیق‌تر **Strict Typing** . پیاده‌سازی **Strong Typing** .
+- بخش استایل‌دهی (CSS/Tailwind) را برای تکمیل چیدمان (Layout) اضافه کن. استایل ها در فایل های مجزا از کامپوننت باشند
+</file>
+
+<file path="openapi.json">
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Back Test Lab", "version": "0.1.0" },
+  "paths": {
+    "/api/backtest/get_back_test": {
+      "post": {
+        "tags": ["backtest"],
+        "summary": "Get Back Test",
+        "operationId": "get_back_test_api_backtest_get_back_test_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BacktestRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BacktestResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/data/csv-files": {
+      "get": {
+        "tags": ["data"],
+        "summary": "List Csv Files",
+        "operationId": "list_csv_files_api_data_csv_files_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CsvFilesResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BacktestRequest": {
+        "properties": {
+          "csv_filename": {
+            "type": "string",
+            "title": "Csv Filename",
+            "default": "geramTalaHejdah-60minute.csv"
+          },
+          "candle_count": {
+            "type": "integer",
+            "minimum": 100.0,
+            "title": "Candle Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "BacktestRequest"
+      },
+      "BacktestResponse": {
+        "properties": {
+          "candles": {
+            "items": { "$ref": "#/components/schemas/Candle" },
+            "type": "array",
+            "title": "Candles"
+          },
+          "trades": {
+            "items": { "$ref": "#/components/schemas/Trade" },
+            "type": "array",
+            "title": "Trades"
+          }
+        },
+        "type": "object",
+        "required": ["candles", "trades"],
+        "title": "BacktestResponse"
+      },
+      "Candle": {
+        "properties": {
+          "time": { "type": "integer", "title": "Time" },
+          "open": { "type": "number", "title": "Open" },
+          "high": { "type": "number", "title": "High" },
+          "low": { "type": "number", "title": "Low" },
+          "close": { "type": "number", "title": "Close" }
+        },
+        "type": "object",
+        "required": ["time", "open", "high", "low", "close"],
+        "title": "Candle"
+      },
+      "CsvFilesResponse": {
+        "properties": {
+          "csv_files": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Csv Files"
+          }
+        },
+        "type": "object",
+        "required": ["csv_files"],
+        "title": "CsvFilesResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Trade": {
+        "properties": {
+          "is_long": { "type": "boolean", "title": "Is Long" },
+          "entry_time": { "type": "number", "title": "Entry Time" },
+          "exit_time": { "type": "number", "title": "Exit Time" },
+          "entry_price": { "type": "number", "title": "Entry Price" },
+          "exit_price": { "type": "number", "title": "Exit Price" },
+          "pnl_pct": { "type": "number", "title": "Pnl Pct" }
+        },
+        "type": "object",
+        "required": [
+          "is_long",
+          "entry_time",
+          "exit_time",
+          "entry_price",
+          "exit_price",
+          "pnl_pct"
+        ],
+        "title": "Trade"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" },
+          "input": { "title": "Input" },
+          "ctx": { "type": "object", "title": "Context" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
+</file>
+
+</files>
